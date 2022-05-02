@@ -32,28 +32,35 @@ function playRound(playerSelection, computerSelection) {
 
 // console.log(playRound('ROck', computerPlay()));
 
-function game() {
-    const rounds = 5;
-    for (let i=0; i<rounds; i++) {
-        let userChoice = prompt("Choose rock, paper, or scissors.");
-        let computerChoice = computerPlay();
-        let result = playRound(userChoice, computerChoice); 
-        let message = `You ${result}!`;
+function game(userChoice) {
+    let computerChoice = computerPlay();
+    let result = playRound(userChoice, computerChoice); 
+    let message = `You ${result}!`;
+    let resultParagraph  = document.querySelector("p#result");
 
-        switch (result) {
-            case "win":
-                message = `${message} ${userChoice} beats ${computerChoice}`;
-                break;
-            case "lose":
-                message = `${message} ${userChoice} loses to ${computerChoice}`;
-                break;
-            case "tie":
-                message = `${message} ${userChoice} ties with ${computerChoice}`;
-                break;
-        }
-        // console.log(`You ${result}! ${userChoice} ${computerChoice}`)
-        console.log(message);
+    switch (result) {
+        case "win":
+            message = `${message} ${userChoice} 
+                    beats ${computerChoice}`;
+            break;
+        case "lose":
+            message = `${message} ${userChoice} 
+                    loses to ${computerChoice}`;
+            break;
+        case "tie":
+            message = `${message} ${userChoice} 
+                    ties with ${computerChoice}`;
+            break;
     }
+    resultParagraph.textContent = message;
 }
 
-game();
+let buttons = document.querySelectorAll("button");
+buttons.forEach(button => {
+    // console.log(button.id);
+    button.addEventListener('click', () => console.log(game(button.id)));
+});
+
+
+// console.log(buttons);
+// game();
