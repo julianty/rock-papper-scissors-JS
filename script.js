@@ -1,4 +1,5 @@
-// console.log("Hello World!")
+let score = 0;
+let computerScore = 0;
 
 function computerPlay() {
     const choices = ["Rock", "Paper", "Scissors"];
@@ -36,14 +37,18 @@ function game(userChoice) {
     let computerChoice = computerPlay();
     let result = playRound(userChoice, computerChoice); 
     let message = `You ${result}!`;
+    let rounds = 5;
     let resultParagraph  = document.querySelector("p#result");
+    let scoreParagraph = document.querySelector("p#score");
 
     switch (result) {
         case "win":
+            score += 1;
             message = `${message} ${userChoice} 
                     beats ${computerChoice}`;
             break;
         case "lose":
+            computerScore += 1;
             message = `${message} ${userChoice} 
                     loses to ${computerChoice}`;
             break;
@@ -53,6 +58,13 @@ function game(userChoice) {
             break;
     }
     resultParagraph.textContent = message;
+    if (score >= rounds || computerScore >= rounds) {
+        scoreParagraph.textContent = 
+                score > computerScore ? 'User wins!' : 'Computer wins!';
+        return
+    }
+    scoreParagraph.textContent = `User: ${score}/${rounds}, 
+            Computer: ${computerScore}/${rounds}`;
 }
 
 let buttons = document.querySelectorAll("button");
